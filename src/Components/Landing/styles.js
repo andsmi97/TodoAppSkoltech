@@ -98,5 +98,37 @@ export const styles = theme => ({
   },
   highlight: {
     color: theme.palette.primary.main
+  },
+  "@media (max-width: 960px)": {
+    contetWelcome: {
+      padding: 10,
+      height: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignContent: "center"
+    },
+    container: {
+      paddingLeft: 0,
+      paddingRight: 0
+    },
+    contentContainer: {
+      paddingLeft: 0,
+      paddingRight: 0
+    },
+    contentContainerSecondary: {
+      paddingLeft: 0,
+      paddingRight: 0
+    },
+    h2: {
+      fontSize: "2rem"
+    },
+    h3: {
+      fontWeight: "normal",
+      fontSize: "1.4rem"
+    },
+    logo: {
+      padding: 16
+      //   marginLeft: 16
+    }
   }
 });

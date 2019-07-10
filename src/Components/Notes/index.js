@@ -14,108 +14,29 @@ import Loader from "../Loader";
 import AddIcon from "@material-ui/icons/Add";
 import Checkbox from "@material-ui/core/Checkbox";
 import NoteModal from "./NoteModal";
-// const styles = theme => ({
-//   container: {
-//     position: "relative",
-//     height: "100px",
-//     display: "flex",
-//     background: "#3dc0AA",
-//     width: "300px",
-//     justifyContent: "flex-start",
-//     alignItems: "center",
-//     borderRadius: 5,
-//     color: "#fff"
-//   },
-//   imageHeader: {
-//     height: 30,
-//     width: "100%",
-//     display: "flex",
-//     justifyContent: "flex-end",
-//     position: "absolute"
-//   },
-//   img: {
-//     width: "100%",
-//     height: "100%"
-//   },
-//   title: {
-//     color: theme.palette.primary.main
-//   },
-//   titleBar: {
-//     background: "rgba(0,0,0,0.1)"
-//   },
-//   item: {
-//     listStyle: "none"
-//   },
-//   checkboxContainer: {}
-// });
-
-// const SortableItem = withStyles(styles)(
-//   SortableElement(({ title, deadline, defaultStatus, classes }) => {
-//     const [status, setStatus] = React.useState(defaultStatus);
-
-//     const handleChange = event => {
-//       setStatus(event.target.checked);
-//     };
-
-//     return (
-//       <Grid item xs={4} md={4} lg={4}>
-//         <div className={classes.container}>
-//           <div className={classes.checkboxContainer}>
-//             <Checkbox
-//               checked={status}
-//               onChange={handleChange}
-//               value={status}
-//               inputProps={{
-//                 "aria-label": "primary checkbox"
-//               }}
-//             />
-//           </div>
-//           <div className={classes.textContainer}>
-//             <Typography>{title}</Typography>
-//             <Typography>{deadline}</Typography>
-//           </div>
-//         </div>
-//       </Grid>
-//     );
-//   })
-// );
-
-// const SortableList = SortableContainer(({ notes }) => {
-//   return (
-//     <Grid
-//       container
-//       direction="row"
-//       justify="center"
-//       alignItems="flex-start"
-//       spacing={3}
-//     >
-//       {notes.map((note, index) => (
-//         <SortableItem
-//           key={`item-${index}`}
-//           title={note.title}
-//           deadline={note.deadline}
-//           defaultStatus={note.status}
-//           index={index}
-//         />
-//       ))}
-//     </Grid>
-//   );
-// });
 
 const contentStyles = {
   paper: {
     display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
+    // justifyContent: "center",
+    // flexDirection: "column",
     padding: 24,
     marginBottom: 32,
-    background: "rgba(0,0,0,.01)"
+    background: "rgba(0,0,0,.01)",
+    height: "100%"
+  },
+  table: {
+    height: "40vh",
+    marginBottom: 50
   }
 };
 const useStyles = makeStyles(theme => contentStyles);
 export default () => {
   const [content, setContent] = useState({
     urgentImportant: [
+      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
       { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
       { title: "Закончить работу", deadline: "17-09-19", stauts: true }
     ],
@@ -139,19 +60,29 @@ export default () => {
       setContent({
         urgentImportant: [
           { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Закончить работу", deadline: "17-09-19", stauts: true }
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
         ],
         notUrgentImportant: [
           { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Закончить работу", deadline: "17-09-19", stauts: true }
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
         ],
         urgentNotImportant: [
           { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Закончить работу", deadline: "17-09-19", stauts: true }
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
         ],
         notUrgentNotImportant: [
           { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Закончить работу", deadline: "17-09-19", stauts: true }
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
+          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
         ],
         isPending: false
       });
@@ -181,7 +112,7 @@ export default () => {
     <React.Fragment>
       <NoteModal />
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6} className={classes.table}>
           <Typography variant="h5" gutterBottom>
             Срочные, Важные
           </Typography>
@@ -189,7 +120,7 @@ export default () => {
             <Notes items={urgentImportant} />
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6} className={classes.table}>
           <Typography variant="h5" gutterBottom>
             НЕ Срочные, Важные
           </Typography>
@@ -197,7 +128,7 @@ export default () => {
             <Notes items={notUrgentImportant} />
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6} className={classes.table}>
           <Typography variant="h5" gutterBottom>
             Срочные, НЕ Важные
           </Typography>
@@ -205,7 +136,7 @@ export default () => {
             <Notes items={urgentNotImportant} />
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6} className={classes.table}>
           <Typography variant="h5" gutterBottom>
             НЕ Срочные, НЕ Важные
           </Typography>
@@ -218,18 +149,23 @@ export default () => {
   );
 };
 
-// export default () => {
-//   return <div>it renders</div>;
-// };
-
+const useNotesStyles = makeStyles(theme => ({
+  wrapper: {
+    overflow: "auto",
+    height: "100%",
+    alignContent: "flex-start"
+  }
+}));
 const Notes = ({ items }) => {
+  const classes = useNotesStyles();
   return (
     <Grid
       container
       direction="row"
-      justify="center"
+      justify="flex-start"
       alignItems="flex-start"
-      spacing={3}
+      spacing={0}
+      className={classes.wrapper}
     >
       {items.map((note, index) => (
         <Note
@@ -250,7 +186,6 @@ const useNoteStyles = makeStyles(theme => ({
     height: "70px",
     display: "flex",
     background: "#3dc0AA",
-    width: "300px",
     justifyContent: "flex-start",
     alignItems: "center",
     borderRadius: 5,
@@ -275,7 +210,7 @@ const Note = ({ title, deadline, defaultStatus }) => {
     setStatus(event.target.checked);
   };
   return (
-    <Grid item xs={4} md={4} lg={4}>
+    <Grid item xs={12} md={6} lg={6}>
       <div className={classes.container}>
         <div className={classes.checkboxContainer}>
           <Checkbox

@@ -11,6 +11,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ListErrors from "../ListErrors";
+import Hidden from "@material-ui/core/Hidden";
 import {
   auth,
   signInWithGoogle,
@@ -106,14 +107,16 @@ export default props => {
           className={classes.container}
           justify="center"
         >
-          <Grid item xs={6}>
-            <img
-              src="/images/Auth.svg"
-              alt="FluentCRM logo"
-              className={classes.leftImage}
-            />
-          </Grid>
-          <Grid item xs={6}>
+          <Hidden smDown>
+            <Grid item sm={6}>
+              <img
+                src="/images/Auth.svg"
+                alt="FluentCRM logo"
+                className={classes.leftImage}
+              />
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} sm={6}>
             <Tabs
               value={value}
               onChange={handleChange}

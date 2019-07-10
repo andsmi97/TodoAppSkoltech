@@ -13,10 +13,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex"
   },
   appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+    background: "#656565"
   },
   drawer: {
     width: drawerWidth,
@@ -35,6 +32,9 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3)
+  },
+  appFont: {
+    color: "#CCDD00"
   }
 }));
 
@@ -43,10 +43,15 @@ export default ({ currentUser, children }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Avatar currentUser={currentUser} />
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.appFont}
+          >
             Заметки
           </Typography>
         </Toolbar>

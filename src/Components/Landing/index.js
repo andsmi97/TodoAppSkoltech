@@ -7,6 +7,7 @@ import Modal from "./Modal";
 import Snackbar from "./Snackbar";
 import { makeStyles } from "@material-ui/core/styles";
 import { styles } from "./styles";
+import Hidden from "@material-ui/core/Hidden";
 const useStyles = makeStyles(styles);
 export default () => {
   const [state, setState] = useState({
@@ -29,9 +30,7 @@ export default () => {
   const handleSnackBarOpen = () => {
     return setState({ ...state, snackbarOpen: !state.snackbarOpen });
   };
-
   const handleModal = () => setState({ ...state, modalOpen: !state.modalOpen });
-
   const handleChange = field => event => {
     return setState({ ...state, [field]: event.target.value });
   };
@@ -46,32 +45,38 @@ export default () => {
       />
 
       <div className={classes.section}>
-        <div className={classes.navbar}>
+        <Hidden smUp>
           <div className={classes.logo}>
             <img src="/images/Logo.svg" alt="" />
           </div>
-          <div className={classes.links}>
-            <ul className={classes.list}>
-              <li>
-                <Button href="#features" className={classes.link}>
-                  Особенности
-                </Button>
-              </li>
-              <li>
-                <Button href="#prices" className={classes.link}>
-                  Цены
-                </Button>
-              </li>
-              <li>
-                <Button href="#contacts" className={classes.link}>
-                  Контакты
-                </Button>
-              </li>
-            </ul>
-            <Modal buttonName="Начать бесплатно" marginTop={0} />
+        </Hidden>
+        <Hidden smDown>
+          <div className={classes.navbar}>
+            <div className={classes.logo}>
+              <img src="/images/Logo.svg" alt="" />
+            </div>
+            <div className={classes.links}>
+              <ul className={classes.list}>
+                <li>
+                  <Button href="#features" className={classes.link}>
+                    Особенности
+                  </Button>
+                </li>
+                <li>
+                  <Button href="#prices" className={classes.link}>
+                    Цены
+                  </Button>
+                </li>
+                <li>
+                  <Button href="#contacts" className={classes.link}>
+                    Контакты
+                  </Button>
+                </li>
+              </ul>
+              <Modal buttonName="Начать бесплатно" marginTop={0} />
+            </div>
           </div>
-        </div>
-
+        </Hidden>
         <div className={classes.contetWelcome}>
           <Grid
             container
@@ -81,7 +86,7 @@ export default () => {
             className={classes.container}
             justify="center"
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <div className={classes.textblock}>
                 <h2 className={classes.h2}>
                   Упрости себе <span className={classes.highlight}>жизнь</span>
@@ -93,7 +98,7 @@ export default () => {
                 <Modal buttonName="Подробнее" marginTop={30} />
               </div>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <div className={classes.imgblock}>
                 <img
                   src="/images/1FreeMemory.svg"
@@ -114,16 +119,18 @@ export default () => {
           className={classes.contentContainer}
           justify="center"
         >
-          <Grid item xs={6}>
-            <div className={classes.imgblock}>
-              <img
-                src="/images/2DoMore.svg"
-                alt="FluentCRM Deal"
-                width="100%"
-              />
-            </div>
-          </Grid>
-          <Grid item xs={6}>
+          <Hidden smDown>
+            <Grid item xs={12} md={6}>
+              <div className={classes.imgblock}>
+                <img
+                  src="/images/2DoMore.svg"
+                  alt="FluentCRM Deal"
+                  width="100%"
+                />
+              </div>
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} md={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
                 Освободи себе <span className={classes.highlight}>память</span>
@@ -146,7 +153,7 @@ export default () => {
           className={classes.contentContainerSecondary}
           justify="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
                 <span className={classes.highlight}>Безопасное</span> хранение
@@ -158,15 +165,17 @@ export default () => {
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
           </Grid>
-          <Grid item xs={6}>
-            <div className={classes.imgblock}>
-              <img
-                src="/images/3EasierLife.svg"
-                alt="FluentCRM Deal"
-                width="100%"
-              />
-            </div>
-          </Grid>
+          <Hidden smDown>
+            <Grid item xs={12} md={6}>
+              <div className={classes.imgblock}>
+                <img
+                  src="/images/3EasierLife.svg"
+                  alt="FluentCRM Deal"
+                  width="100%"
+                />
+              </div>
+            </Grid>
+          </Hidden>
         </Grid>
       </div>
       <div className={classes.contet}>
@@ -178,7 +187,7 @@ export default () => {
           className={classes.contentContainer}
           justify="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.imgblock}>
               <img
                 src="/images/4Matrix.svg"
@@ -187,7 +196,7 @@ export default () => {
               />
             </div>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
                 Успевайте за день{" "}
@@ -213,7 +222,7 @@ export default () => {
           className={classes.contentContainerSecondary}
           justify="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
                 Используйте <span className={classes.highlight}>везде</span>
@@ -225,15 +234,17 @@ export default () => {
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
           </Grid>
-          <Grid item xs={6}>
-            <div className={classes.imgblock}>
-              <img
-                src="/images/5Devices.svg"
-                alt="FluentCRM Deal"
-                width="100%"
-              />
-            </div>
-          </Grid>
+          <Hidden smDown>
+            <Grid item xs={12} md={6}>
+              <div className={classes.imgblock}>
+                <img
+                  src="/images/5Devices.svg"
+                  alt="FluentCRM Deal"
+                  width="100%"
+                />
+              </div>
+            </Grid>
+          </Hidden>
         </Grid>
       </div>
       <div className={classes.contet} id="prices">
@@ -245,7 +256,7 @@ export default () => {
           className={classes.contentContainer}
           justify="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.imgblock}>
               <img
                 src="/images/Payment.svg"
@@ -254,7 +265,7 @@ export default () => {
               />
             </div>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
                 Совершенно <span className={classes.highlight}>бесплатно</span>
@@ -276,7 +287,7 @@ export default () => {
           className={classes.container}
           justify="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
                 Будем рады Вашей{" "}
@@ -299,7 +310,6 @@ export default () => {
                 <input type="hidden" name="label" value="" />
                 <input type="hidden" name="quickpay-form" value="donate" />
                 <input type="hidden" name="targets" value="транзакция" />
-                {/* <input type="hidden" name="sum" value="50" data-type="number" /> */}
                 <TextField
                   id="comment"
                   label="Комментарий"
@@ -315,11 +325,6 @@ export default () => {
                   margin="normal"
                   type="number"
                 />
-                {/* <input
-                  type="hidden"
-                  name="comment"
-                  value="На будущее развитие проекта"
-                /> */}
                 <input type="hidden" name="need-fio" value="false" />
                 <input type="hidden" name="need-email" value="false" />
                 <input type="hidden" name="need-phone" value="false" />
@@ -335,57 +340,19 @@ export default () => {
                   Перевести
                 </Button>
               </form>
-              {/* <form className={classes.form} noValidate autoComplete="off">
-                
-                
-                <TextField
-                  id="standard-name"
-                  label="Имя"
-                  className={classes.textField}
-                  value={state.name}
-                  onChange={handleChange("name")}
-                  margin="normal"
-                />
-                <TextField
-                  id="standard-name"
-                  label="Email"
-                  className={classes.textField}
-                  value={state.email}
-                  onChange={handleChange("email")}
-                  margin="normal"
-                  type="email"
-                />
-                <TextField
-                  id="standard-multiline-flexible"
-                  label="Сообщение"
-                  multiline
-                  rowsMax="4"
-                  value={state.message}
-                  onChange={handleChange("message")}
-                  className={classes.textField}
-                  margin="normal"
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  className={classes.pageButton}
-                  onClick={handleSnackBarClose()}
-                >
-                  Написать
-                </Button>
-              </form> */}
             </div>
           </Grid>
-          <Grid item xs={6}>
-            <div className={classes.imgblock}>
-              <img
-                src="/images/7ContactUs.svg"
-                alt="FluentCRM Deal"
-                width="100%"
-              />
-            </div>
-          </Grid>
+          <Hidden smDown>
+            <Grid item xs={6}>
+              <div className={classes.imgblock}>
+                <img
+                  src="/images/7ContactUs.svg"
+                  alt="FluentCRM Deal"
+                  width="100%"
+                />
+              </div>
+            </Grid>
+          </Hidden>
         </Grid>
       </div>
     </React.Fragment>
