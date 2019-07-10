@@ -84,27 +84,22 @@ export default () => {
             <Grid item xs={6}>
               <div className={classes.textblock}>
                 <h2 className={classes.h2}>
-                  Хотите увеличить{" "}
-                  <span className={classes.highlight}>продажи</span>?
+                  Упрости себе <span className={classes.highlight}>жизнь</span>
                 </h2>
                 <h3 className={classes.h3}>
-                  Воспользуйтесь{" "}
-                  <span className={classes.logotext}>
-                    {" "}
-                    <img
-                      src="/images/Inline Logo.svg"
-                      alt="FluentCRM logo"
-                      className={classes.logotext}
-                    />
-                  </span>{" "}
-                  для элементарного управления сделками с клиентами
+                  Организовывай распорядок дня с помощью{" "}
+                  <span className={classes.highlight}>ToDoApp</span>
                 </h3>
                 <Modal buttonName="Подробнее" marginTop={30} />
               </div>
             </Grid>
             <Grid item xs={6}>
               <div className={classes.imgblock}>
-                <img src="/images/Dashboard.svg" alt="FluentCRM Dashboard" />
+                <img
+                  src="/images/1FreeMemory.svg"
+                  alt="ToDoApp memory"
+                  width="100%"
+                />
               </div>
             </Grid>
           </Grid>
@@ -121,17 +116,21 @@ export default () => {
         >
           <Grid item xs={6}>
             <div className={classes.imgblock}>
-              <img src="/images/Deal.svg" alt="FluentCRM Deal" />
+              <img
+                src="/images/2DoMore.svg"
+                alt="FluentCRM Deal"
+                width="100%"
+              />
             </div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
-                Заключайте <span className={classes.highlight}>сделки</span>
+                Освободи себе <span className={classes.highlight}>память</span>
               </h2>
               <h3 className={classes.h3}>
-                И следите за ними в единой системе, для того чтобы в любой
-                момент времени получить о них информацию
+                Записывай важные и не очень задачи в{" "}
+                <span className={classes.highlight}>ToDoApp</span>
               </h3>
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
@@ -150,17 +149,22 @@ export default () => {
           <Grid item xs={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
-                Ставьте <span className={classes.highlight}>задачи</span>
+                <span className={classes.highlight}>Безопасное</span> хранение
+                данныех
               </h2>
               <h3 className={classes.h3}>
-                И отслеживайте их выполнение менеджерами
+                Будь уверен в безопасности своих данных
               </h3>
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.imgblock}>
-              <img src="/images/TaskImage.svg" alt="FluentCRM Deal" />
+              <img
+                src="/images/3EasierLife.svg"
+                alt="FluentCRM Deal"
+                width="100%"
+              />
             </div>
           </Grid>
         </Grid>
@@ -176,24 +180,24 @@ export default () => {
         >
           <Grid item xs={6}>
             <div className={classes.imgblock}>
-              <img src="/images/CoopImage.svg" alt="FluentCRM CoopImage" />
+              <img
+                src="/images/4Matrix.svg"
+                alt="FluentCRM CoopImage"
+                width="100%"
+              />
             </div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
-                Заключайте <span className={classes.highlight}>сделки</span>
+                Успевайте за день{" "}
+                <span className={classes.highlight}>больше </span>
               </h2>
               <h3 className={classes.h3}>
-                <span className={classes.logotext}>
-                  {" "}
-                  <img
-                    src="/images/Inline Logo.svg"
-                    alt="FluentCRM logo"
-                    className={classes.logotext}
-                  />
-                </span>{" "}
-                предназначена для работы с несколькими пользователями
+                Матрица
+                <span className={classes.highlight}>Эйзенхауэра </span>
+                {"-"}
+                эффективный инструмент тайм-менеджмента
               </h3>
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
@@ -215,23 +219,19 @@ export default () => {
                 Используйте <span className={classes.highlight}>везде</span>
               </h2>
               <h3 className={classes.h3}>
-                <span className={classes.logotext}>
-                  {" "}
-                  <img
-                    src="/images/Inline Logo.svg"
-                    alt="FluentCRM logo"
-                    className={classes.logotext}
-                  />
-                </span>{" "}
-                приспособлена для использования на любых устройствах от телефона
-                до компьютера
+                <span className={classes.highlight}> ToDoApp</span> доступен на
+                любом устройстве с выходом в интернет
               </h3>
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.imgblock}>
-              <img src="/images/TaskImage.svg" alt="FluentCRM Deal" />
+              <img
+                src="/images/5Devices.svg"
+                alt="FluentCRM Deal"
+                width="100%"
+              />
             </div>
           </Grid>
         </Grid>
@@ -247,17 +247,20 @@ export default () => {
         >
           <Grid item xs={6}>
             <div className={classes.imgblock}>
-              <img src="/images/Payment.svg" alt="FluentCRM CoopImage" />
+              <img
+                src="/images/Payment.svg"
+                alt="FluentCRM CoopImage"
+                width="100%"
+              />
             </div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
-                И все это <span className={classes.highlight}>бесплатно</span>
+                Совершенно <span className={classes.highlight}>бесплатно</span>
               </h2>
               <h3 className={classes.h3}>
-                Все верно, для того чтобы пользоваться FluentCRM не нужно
-                платить ни копейки
+                Нет скрытых платежей и платных функций
               </h3>
               <Modal buttonName="Подробнее" marginTop={30} />
             </div>
@@ -323,7 +326,11 @@ export default () => {
           </Grid>
           <Grid item xs={6}>
             <div className={classes.imgblock}>
-              <img src="/images/ContactUs.svg" alt="FluentCRM Deal" />
+              <img
+                src="/images/7ContactUs.svg"
+                alt="FluentCRM Deal"
+                width="100%"
+              />
             </div>
           </Grid>
         </Grid>

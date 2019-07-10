@@ -11,6 +11,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ListErrors from "../ListErrors";
+import {
+  auth,
+  signInWithGoogle,
+  createUserProfileDocument
+} from "../../firebase/firebase.utils.js";
 const useStyles = makeStyles(theme => ({
   button: props => ({
     borderRadius: "50px",
@@ -46,6 +51,32 @@ export default props => {
   const handleChange = (event, value) => setValue(value);
   const handleChangeIndex = index => setValue(index);
 
+  const onSignInSubmit = async event => {
+    event.preventDefault();
+    setInProgress(true);
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      setInProgress(false);
+    } catch (e) {
+      setInProgress(false);
+      console.log(e);
+    }
+  };
+  const onSignUpSubmit = async event => {
+    event.preventDefault();
+    setInProgress(true);
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await createUserProfileDocument(user);
+      setInProgress(false);
+    } catch (error) {
+      console.error(error);
+      setInProgress(false);
+    }
+  };
   return (
     <>
       <Button
@@ -96,8 +127,8 @@ export default props => {
               onChangeIndex={handleChangeIndex}
             >
               <div>
-                {/* <form onSubmit={this.submitForm(email, password)}> */}
-                <form>
+                <form onSubmit={onSignInSubmit}>
+                  {/* <form> */}
                   <div>
                     <DialogTitle id="form-dialog-title">Войти</DialogTitle>
                     <DialogContent>
@@ -122,6 +153,9 @@ export default props => {
                       />
                     </DialogContent>
                     <DialogActions>
+                      <Button onClick={signInWithGoogle} color="primary">
+                        Войти с Google
+                      </Button>
                       <Button onClick={handleClose} color="primary">
                         Отмена
                       </Button>
@@ -138,20 +172,10 @@ export default props => {
                 <ListErrors errors={errors} />
               </div>
               <div>
-                {/* <form onSubmit={this.submitForm(username, email, password)}> */}
-                <form>
+                <form onSubmit={onSignUpSubmit}>
+                  {/* <form> */}
                   <DialogTitle id="form-dialog-title">Регистрация</DialogTitle>
                   <DialogContent>
-                    <TextField
-                      autofocus
-                      margin="dense"
-                      id="username"
-                      label="Логин"
-                      type="text"
-                      fullWidth
-                      value={username}
-                      onChange={changeUsername}
-                    />
                     <TextField
                       margin="dense"
                       id="email"

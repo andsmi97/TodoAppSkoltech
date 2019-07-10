@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Landing from "./Components/Landing";
 import Loader from "./Components/Loader";
 import Drawer from "./Components/Drawer";
-// import Notes from "./Components/Notes";
+import Notes from "./Components/Notes";
 import agent from "./agent";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,6 +30,7 @@ export default () => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const token = await userAuth.getIdToken();
+        console.log(token);
         agent.setToken(token);
         const userRef = await createUserProfileDocument(userAuth);
         if (userRef === undefined) {
@@ -49,7 +50,7 @@ export default () => {
       }
     });
     return () => unsubscribeFromAuth();
-  });
+  }, []);
   return (
     <MuiThemeProvider theme={theme}>
       <Switch>
@@ -59,7 +60,9 @@ export default () => {
           render={() =>
             appLoaded ? (
               currentUser ? (
-                <Drawer currentUser={currentUser} />
+                <Drawer currentUser={currentUser}>
+                  <Notes />
+                </Drawer>
               ) : (
                 <Landing />
               )
@@ -70,7 +73,7 @@ export default () => {
         />
         {appLoaded ? (
           <Drawer currentUser={currentUser}>
-            {/* <Route exact path="/notes" component={Notes} /> */}
+            <Route exact path="/" component={Notes} />
           </Drawer>
         ) : (
           <Loader />
