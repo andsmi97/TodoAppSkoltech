@@ -60,7 +60,26 @@ app.get("/note/:noteId", async (req, res) => {
   try {
     const noteId = req.params.noteId;
     const userId = req.user.user_id;
-    return res.status(200).json(req.user);
+    const snapshot = await db
+      .collection("notes")
+      .doc(noteId)
+      .get();
+    if (!snapshot.data()) {
+      return res.status(404).json({
+        errorCode: 404,
+        errorMessage: `note '${noteId}' not found`
+      });
+    }
+    if (snapshot.data().owner !== userId) {
+      return res.status(403).json({
+        errorCode: 403,
+        errorMessage: `Access denied`
+      });
+    }
+    return res
+      .set("Cache-Control", "private, max-age=300")
+      .status(200)
+      .json(snapshot.data());
   } catch (error) {
     return res.sendStatus(500);
   }
@@ -89,21 +108,36 @@ app.get("/notes", async (req, res) => {
 });
 
 // create note
-app.post("/note", async (req, res) => {
+app.post("/note", authenticate, async (req, res) => {
   try {
     const userId = req.user.user_id;
-    // const body = JSON.parse(req.body);
-    return res.status(200).json("CHECK");
+    const body = JSON.parse(req.body);
+    // return res.status(200).json(userId);
+    // Add a new document with a generated id.
+
+    const tmp = {};
+    Object.assign(tmp, body, { owner: userId });
+
+    db.collection("notes")
+      .add(tmp)
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        return res.sendStatus(201);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+        return res.sendStatus(500);
+      });
   } catch (error) {
     return res.sendStatus(500);
   }
 });
 
 //removes note from DB
-app.delete("/note/:noteId", async (req, res) => {
+app.delete("/note/:noteId", authenticate, async (req, res) => {
   try {
     const noteId = req.params.noteId;
-    // const userId = req.user.user_id;
+    const userId = req.user.user_id;
     const snapshot = await db
       .collection("notes")
       .doc(noteId)
@@ -114,15 +148,20 @@ app.delete("/note/:noteId", async (req, res) => {
         errorMessage: `note '${noteId}' not found`
       });
     }
-
+    if (snapshot.data().owner !== userId) {
+      return res.status(403).json({
+        errorCode: 403,
+        errorMessage: `Access denied`
+      });
+    }
     db.collection("notes")
       .doc(noteId)
       .delete()
-      .then(function() {
+      .then(() => {
         console.log("Document successfully deleted!");
         return res.sendStatus(200);
       })
-      .catch(function(error) {
+      .catch(error => {
         console.error("Error removing document: ", error);
         return res.sendStatus(500);
       });
@@ -136,10 +175,14 @@ app.post("/note/:noteId", async (req, res) => {
   try {
     const noteId = req.params.noteId;
     const body = JSON.parse(req.body);
+
+    const userId = req.user.user_id;
+
     const snapshot = await db
       .collection("notes")
       .doc(noteId)
       .get();
+    // return res.status(200).json(snapshot.data());
 
     if (!snapshot.data()) {
       return res.status(404).json({
@@ -148,15 +191,22 @@ app.post("/note/:noteId", async (req, res) => {
       });
     }
 
+    if (snapshot.data().owner !== userId) {
+      return res.status(403).json({
+        errorCode: 403,
+        errorMessage: `Access denied`
+      });
+    }
+
     await db
       .collection("notes")
       .doc(noteId)
-      .update(body.data())
-      .then(function() {
+      .update(body)
+      .then(() => {
         console.log("Document successfully updated!");
         return res.sendStatus(200);
       })
-      .catch(function(error) {
+      .catch(error => {
         console.error("Error updating document: ", error);
         return res.sendStatus(500);
       });
