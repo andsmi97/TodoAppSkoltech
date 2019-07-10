@@ -279,12 +279,65 @@ export default () => {
           <Grid item xs={6}>
             <div className={classes.textblock}>
               <h2 className={classes.h2}>
-                Остались <span className={classes.highlight}>вопросы</span>?
+                Будем рады Вашей{" "}
+                <span className={classes.highlight}>помощи</span>!
               </h2>
               <h3 className={classes.h3}>
-                Напишите нам и мы ответим Вам в ближайшее время.
+                Если Вам нравится наше приложение, Вы можете поддержать нас
+                материально на будущее развитие
               </h3>
-              <form className={classes.form} noValidate autoComplete="off">
+              <form
+                method="POST"
+                action="https://money.yandex.ru/quickpay/confirm.xml"
+                className={classes.form}
+                noValidate
+                autoComplete="off"
+              >
+                <input type="hidden" name="receiver" value="41001525987684" />
+                <input type="hidden" name="formcomment" value="ToDoApp" />
+                <input type="hidden" name="short-dest" value="ToDoApp" />
+                <input type="hidden" name="label" value="" />
+                <input type="hidden" name="quickpay-form" value="donate" />
+                <input type="hidden" name="targets" value="транзакция" />
+                {/* <input type="hidden" name="sum" value="50" data-type="number" /> */}
+                <TextField
+                  id="comment"
+                  label="Комментарий"
+                  className={classes.textField}
+                  margin="normal"
+                  name="comment"
+                />
+                <TextField
+                  id="sum"
+                  label="Сумма"
+                  name="sum"
+                  className={classes.textField}
+                  margin="normal"
+                  type="number"
+                />
+                {/* <input
+                  type="hidden"
+                  name="comment"
+                  value="На будущее развитие проекта"
+                /> */}
+                <input type="hidden" name="need-fio" value="false" />
+                <input type="hidden" name="need-email" value="false" />
+                <input type="hidden" name="need-phone" value="false" />
+                <input type="hidden" name="need-address" value="false" />
+                <input type="hidden" name="paymentType" value="AC" />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  className={classes.pageButton}
+                  type="submit"
+                >
+                  Перевести
+                </Button>
+              </form>
+              {/* <form className={classes.form} noValidate autoComplete="off">
+                
+                
                 <TextField
                   id="standard-name"
                   label="Имя"
@@ -321,7 +374,7 @@ export default () => {
                 >
                   Написать
                 </Button>
-              </form>
+              </form> */}
             </div>
           </Grid>
           <Grid item xs={6}>

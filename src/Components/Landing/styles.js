@@ -81,7 +81,11 @@ export const styles = theme => ({
   },
   pageButton: {
     borderRadius: "50px",
-    marginTop: 30
+    marginTop: 30,
+    "&:hover": {
+      color: "#CCDD00",
+      background: "#656565"
+    }
   },
   h2: {
     fontWeight: "bold",

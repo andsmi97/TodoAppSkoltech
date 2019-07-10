@@ -19,7 +19,11 @@ import {
 const useStyles = makeStyles(theme => ({
   button: props => ({
     borderRadius: "50px",
-    marginTop: props.marginTop
+    marginTop: props.marginTop,
+    "&:hover": {
+      color: "#CCDD00",
+      background: "#656565"
+    }
   }),
   container: {
     width: "100%",
