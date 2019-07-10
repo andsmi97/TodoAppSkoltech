@@ -7,8 +7,8 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "100vw",
-    height: "100vh"
+    width: "calc(100vw - 8px)", //have no idea why simple 100vw doesn't work;
+    height: "calc(100vh - 17px)"
   }
 }));
 
