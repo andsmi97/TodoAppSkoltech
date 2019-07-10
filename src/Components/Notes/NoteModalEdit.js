@@ -10,13 +10,23 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import { format } from "date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import ruLocale from "date-fns/locale/ru";
 import DateFnsUtils from "@date-io/date-fns";
-import agent from "../../agent";
+import GridListTile from "@material-ui/core/GridListTile";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Loader from "../Loader";
+
+import Checkbox from "@material-ui/core/Checkbox";
 const useStyles = makeStyles(theme => ({
   fab: {
     position: "fixed",
@@ -26,6 +36,26 @@ const useStyles = makeStyles(theme => ({
       color: "#CCDD00",
       background: "#656565"
     }
+  },
+  containerNote: {
+    position: "relative",
+    height: "70px",
+    display: "flex",
+    background: "#3dc0AA",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    borderRadius: 5,
+    color: "#fff",
+    margin: 16
+  },
+  title: {
+    color: theme.palette.primary.main
+  },
+  titleBar: {
+    background: "rgba(0,0,0,0.1)"
+  },
+  item: {
+    listStyle: "none"
   },
   container: {
     display: "flex",
@@ -98,12 +128,13 @@ const types = [
 
 export default props => {
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [deadline, setDeadline] = useState(new Date());
-  const [type, setType] = useState("urgentImportant");
-  const [priority, setPriority] = useState(1);
-  const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState(props.title);
+  const [status, setStatus] = useState(props.status);
+  const [body, setBody] = useState(props.body);
+  const [deadline, setDeadline] = useState(props.deadline);
+  const [type, setType] = useState(props.type);
+  const [priority, setPriority] = useState(props.priority);
+  const [tags, setTags] = useState(props.tags);
   const classes = useStyles();
   const handleClickOpen = () => {
     setOpen(true);
@@ -112,35 +143,34 @@ export default props => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleChange = event => {
+    setStatus(event.target.checked);
+  };
   const onChangeTitle = e => setTitle(e.target.value);
   const onChangeBody = e => setBody(e.target.value);
   const onChangePriority = e => setPriority(e.target.value);
   const onChangeType = e => setType(e.target.value);
-  const onSubmit = async e => {
-    e.preventDefault();
-    const note = {
-      title,
-      body,
-      deadline: { _seconds: deadline.getTime() / 1000 },
-      type,
-      priority,
-      tags: [],
-      color: "red"
-    };
-    props.addNote(note);
-    await agent.Notes.create({ ...note, deadline });
-    setOpen(false);
-  };
+  const onSubmit = () => {};
   return (
     <div>
-      <Fab
-        aria-label={"Добавить"}
-        className={classes.fab}
-        color="primary"
-        onClick={handleClickOpen}
-      >
-        <AddIcon />
-      </Fab>
+      <div className={classes.containerNote}>
+        <div className={classes.checkboxContainer} onClick={handleClickOpen}>
+          <Checkbox
+            checked={status}
+            onChange={handleChange}
+            value={status}
+            inputProps={{
+              "aria-label": "primary checkbox"
+            }}
+          />
+        </div>
+        <div className={classes.textContainer}>
+          <Typography>{title}</Typography>
+          <Typography>
+            {format(new Date(deadline._seconds * 1000), "dd/MM/yyyy")}
+          </Typography>
+        </div>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -215,7 +245,7 @@ export default props => {
             <Button onClick={handleClose} color="primary">
               Отменить
             </Button>
-            <Button type="submit" color="primary">
+            <Button onClick={handleClose} color="primary">
               Сохранить
             </Button>
           </DialogActions>

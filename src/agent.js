@@ -3,7 +3,7 @@ import _superagent from "superagent";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = "http://localhost:8080";
+const API_ROOT = "https://us-central1-todoapp-82755.cloudfunctions.net/api";
 
 const responseBody = res => res.body;
 
@@ -40,7 +40,7 @@ const requests = {
 const Notes = {
   all: () => requests.get("/notes"),
   one: id => requests.get(`/note/${id}`),
-  update: (id, note) => requests.put(`/note/${id}`, note),
+  update: (id, note) => requests.post(`/note/${id}`, note),
   remove: id => requests.del(`/note/${id}`),
   create: note => requests.post("/note", note)
 };

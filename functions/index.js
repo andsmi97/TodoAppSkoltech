@@ -95,7 +95,8 @@ app.get("/notes", async (req, res) => {
       .then(function(querySnapshot) {
         const notesOfUser = [];
         querySnapshot.forEach(function(doc) {
-          notesOfUser.push(doc.data());
+          // notesOfUser.push(doc.id);
+          notesOfUser.push({ ...doc.data(), id: doc.id });
         });
         return res.status(200).json(notesOfUser);
       })
@@ -112,14 +113,22 @@ app.post("/note", authenticate, async (req, res) => {
   try {
     const userId = req.user.user_id;
     const body = JSON.parse(req.body);
+    const { type, title, body, color, deadline, tags, priority } = req.body;
+    // "type":"string"|"int",
+    // "title":"string",
+    // "body": "string",
+    // "color":"string",
+    // "deadline":"date",
+    // "tags":["string"],
+    // "priority": "int"
     // return res.status(200).json(userId);
     // Add a new document with a generated id.
-
-    const tmp = {};
-    Object.assign(tmp, body, { owner: userId });
+    const note = { type, title, body, color, deadline, tags, priority };
+    // const tmp = {};
+    // Object.assign(tmp, body, { owner: userId });
 
     db.collection("notes")
-      .add(tmp)
+      .add(note)
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
         return res.sendStatus(201);
@@ -157,11 +166,11 @@ app.delete("/note/:noteId", authenticate, async (req, res) => {
     db.collection("notes")
       .doc(noteId)
       .delete()
-      .then(() => {
+      .then(function() {
         console.log("Document successfully deleted!");
         return res.sendStatus(200);
       })
-      .catch(error => {
+      .catch(function(error) {
         console.error("Error removing document: ", error);
         return res.sendStatus(500);
       });
@@ -202,11 +211,11 @@ app.post("/note/:noteId", async (req, res) => {
       .collection("notes")
       .doc(noteId)
       .update(body)
-      .then(() => {
+      .then(function() {
         console.log("Document successfully updated!");
         return res.sendStatus(200);
       })
-      .catch(error => {
+      .catch(function(error) {
         console.error("Error updating document: ", error);
         return res.sendStatus(500);
       });

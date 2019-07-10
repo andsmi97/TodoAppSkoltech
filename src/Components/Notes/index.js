@@ -14,7 +14,9 @@ import Loader from "../Loader";
 import AddIcon from "@material-ui/icons/Add";
 import Checkbox from "@material-ui/core/Checkbox";
 import NoteModal from "./NoteModal";
+import NoteModalEdit from "./NoteModalEdit";
 
+import { format } from "date-fns";
 const contentStyles = {
   paper: {
     display: "flex",
@@ -33,59 +35,69 @@ const contentStyles = {
 const useStyles = makeStyles(theme => contentStyles);
 export default () => {
   const [content, setContent] = useState({
-    urgentImportant: [
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Закончить работу", deadline: "17-09-19", stauts: true }
-    ],
-    notUrgentImportant: [
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Закончить работу", deadline: "17-09-19", stauts: true }
-    ],
-    urgentNotImportant: [
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Закончить работу", deadline: "17-09-19", stauts: true }
-    ],
-    notUrgentNotImportant: [
-      { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-      { title: "Закончить работу", deadline: "17-09-19", stauts: true }
-    ],
+    urgentImportant: [],
+    notUrgentImportant: [],
+    urgentNotImportant: [],
+    notUrgentNotImportant: [],
     isPending: false
   });
+  const addNote = note => {
+    setContent({ ...content, [note.type]: [...content[note.type], note] });
+  };
   const classes = useStyles();
   useEffect(() => {
     (async () => {
-      setContent({
-        urgentImportant: [
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
-        ],
-        notUrgentImportant: [
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
-        ],
-        urgentNotImportant: [
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
-        ],
-        notUrgentNotImportant: [
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false },
-          { title: "Поступить в сколтех", deadline: "17-09-19", stauts: false }
-        ],
-        isPending: false
-      });
+      const notes = await agent.Notes.all();
+      console.log(
+        notes.reduce(
+          (acc, note) => {
+            if (note.type === "urgentImportant") {
+              acc.urgentImportant = [...acc.urgentImportant, note];
+            }
+            if (note.type === "notUrgentImportant") {
+              acc.notUrgentImportant = [...acc.notUrgentImportant, note];
+            }
+            if (note.type === "urgentNotImportant") {
+              acc.urgentNotImportant = [...acc.urgentNotImportant, note];
+            }
+            if (note.type === "notUrgentNotImportant") {
+              acc.notUrgentNotImportant = [...acc.notUrgentNotImportant, note];
+            }
+            return acc;
+          },
+          {
+            urgentImportant: [],
+            notUrgentImportant: [],
+            urgentNotImportant: [],
+            notUrgentNotImportant: []
+          }
+        )
+      );
+      setContent(
+        notes.reduce(
+          (acc, note) => {
+            if (note.type === "urgentImportant") {
+              acc.urgentImportant = [...acc.urgentImportant, note];
+            }
+            if (note.type === "notUrgentImportant") {
+              acc.notUrgentImportant = [...acc.notUrgentImportant, note];
+            }
+            if (note.type === "urgentNotImportant") {
+              acc.urgentNotImportant = [...acc.urgentNotImportant, note];
+            }
+            if (note.type === "notUrgentNotImportant") {
+              acc.notUrgentNotImportant = [...acc.notUrgentNotImportant, note];
+            }
+            return acc;
+          },
+          {
+            urgentImportant: [],
+            notUrgentImportant: [],
+            urgentNotImportant: [],
+            notUrgentNotImportant: []
+          }
+        )
+      );
     })();
 
     return () =>
@@ -110,7 +122,7 @@ export default () => {
   }
   return (
     <React.Fragment>
-      <NoteModal />
+      <NoteModal addNote={addNote} />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} className={classes.table}>
           <Typography variant="h5" gutterBottom>
@@ -211,7 +223,7 @@ const Note = ({ title, deadline, defaultStatus }) => {
   };
   return (
     <Grid item xs={12} md={6} lg={6}>
-      <div className={classes.container}>
+      {/* <div className={classes.container}>
         <div className={classes.checkboxContainer}>
           <Checkbox
             checked={status}
@@ -224,9 +236,12 @@ const Note = ({ title, deadline, defaultStatus }) => {
         </div>
         <div className={classes.textContainer}>
           <Typography>{title}</Typography>
-          <Typography>{deadline}</Typography>
+          <Typography>
+            {format(new Date(deadline._seconds * 1000), "dd/MM/yyyy")}
+          </Typography>
         </div>
-      </div>
+      </div> */}
+      <NoteModalEdit title={title} deadline={deadline} status={defaultStatus} />
     </Grid>
   );
 };
