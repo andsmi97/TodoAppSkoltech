@@ -10,7 +10,7 @@
     "@material-ui/styles": "^4.2.0",
     "date-fns": "^2.0.0-beta.2",
     "firebase": "^6.2.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
